@@ -7,6 +7,8 @@ html, body {
   margin: 0;
   height: 100%;
 }
+.fabToolbardemoBasicUsage md-fab-toolbar.md-right md-fab-trigger.align-with-text {
+  left: 7px; }
 body {
   font-family: 'Arial', 'Gotham','Varela Round', sans-serif;
   -moz-font-smoothing: antialiased; /* still no non-prefixed version... */
@@ -206,6 +208,7 @@ img.hero {
   width: 90%;
   overflow: auto;
 }
+
 .notification-avatar {
   float: left;
   margin-right: 10px;
