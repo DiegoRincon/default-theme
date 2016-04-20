@@ -139,11 +139,11 @@
   <div class="container-fluid nonexpanding nomargins">
     <div ng-if="main.shouldShowTopBar()" class="game_header">
       <div class="game_header_inner">
-        <button id="test_open_extra_match_options_modal" type="button" class="button"
+        <md-button id="test_open_extra_match_options_modal" type="button" class="button"
             style="height: 50px; margin-right: 5px; padding: 8px 16px 8px 16px; font-size: 20px; font-weight: bold; background-color: #fff"
             ng-click="main.showModal('extraMatchOptionsModal')">
           &vellip;
-        </button>
+        </md-button>
         <div style="padding: 5px">
           <div class="next-player">
             <img alt="Player avatar" ng-class="{avatar: true, 'avatar-has-turn': main.currentMatch().isTurnOf(player)}"
@@ -171,10 +171,10 @@
   <!-- Header with optional search. -->
 	<div class="header">
     <div class="header-inner" ng-if="!main.fb().showNameFilter()">
-      <button id="test_invite_friends_goto_main" class="button back-button" ng-click="main.changePage('/main')"
+      <md-button id="test_invite_friends_goto_main" class="button back-button" ng-click="main.changePage('/main')"
               style="height: 40px; width: 40px; margin-left: -5px; padding: 5px; font-size: 15px">
         <span class="back-button-icon"></span>
-      </button>
+      </md-button>
    		<div class="title">{{ 'FB_FRIENDS_TITLE' | translate }}</div>
 	  	<a id="test_start_name_filter" class="search-button"
          href="javascript:void(0)"
@@ -329,19 +329,19 @@
           </button>
         </div>
         <div class="form-group" ng-if="!main.playerInPlayerInfoModal().isUnknown()">
-          <button id="test_player_info_toggle_blocking" class="btn smallertext"
+          <md-button id="test_player_info_toggle_blocking" class="btn smallertext"
               ng-click="main.toggleBlocking(main.playerInPlayerInfoModal())">
             {{ main.isBlocking(main.playerInPlayerInfoModal()) ? 'MODAL_BUTTON_UNBLOCK' : 'MODAL_BUTTON_BLOCK' | translate }}
-          </button>
+          </md-button>
         </div>
 
-        <button id="test_close_player_info" type="button" class="btn" ng-click="modal.hide()">
+        <md-button id="test_close_player_info" type="button" class="btn" ng-click="modal.hide()">
           {{ 'MODAL_BUTTON_CLOSE' | translate }}
-        </button>
-        <button id="test_player_info_invite_to_match" class="btn" ng-if="!main.playerInPlayerInfoModal().isUnknown()"
+        </md-button>
+        <md-button id="test_player_info_invite_to_match" class="btn" ng-if="!main.playerInPlayerInfoModal().isUnknown()"
             ng-click="main.startMatchWith([main.playerInPlayerInfoModal()])">
           {{ 'MODAL_BUTTON_INVITE_TO_NEW_MATCH' | translate }}
-        </button>
+        </md-button>
       </div>
     </div>
   </div>
@@ -354,10 +354,17 @@
           <h4 id="test_my_info_title">{{ 'MODAL_TITLE_USER_INFO' | translate }}</h4>
           <!-- First choose language! Then FB login. Also, after logging in to FB, we close myInfoModal. -->
           <div class="bottom-bar">
-            <select class="button" ng-if="main.l10n().getSupportedLanguages().length > 1"
-                ng-model="main.model().currentLanguage" ng-change="main.l10n().changeLanguage(main.model().currentLanguage)"
-                ng-options="language.code as language.name for language in main.l10n().getSupportedLanguages()"></select>
-            <div id="test_open_feedback_modal" class="button" ng-click="main.showModal('feedbackModal')">{{ 'MAIN_FEEDBACK_AND_BUGS_TITLE' | translate }}</div>
+            <md-select class="button" ng-if="main.l10n().getSupportedLanguages().length > 1"
+                ng-model="main.model().currentLanguage" ng-change="main.l10n().changeLanguage(main.model().currentLanguage)">
+                <md-optgroup>
+                  <md-option ng-value="lang.code" ng-repeat="lang in main.l10n().getSupportedLanguages()">
+                    {{lang.name}}
+                  </md-option>
+                </md-optgroup>
+            </md-select>
+            <md-button id="test_open_feedback_modal" class="button" ng-click="main.showModal('feedbackModal')">
+              {{ 'MAIN_FEEDBACK_AND_BUGS_TITLE' | translate }}
+            </md-button>
           </div>
           <div class="form-group">
             <div id="test_my_info_fb_login" ng-if="main.fb().showLoginButton()" ng-click="main.fb().login()" class="facebook-login">
@@ -365,25 +372,27 @@
             </div>
           </div>
           <!-- newDisplayName and newUserName will only be persisted after clicking save. -->
-          <div class="form-group" ng-if="!main.fb().isLoggedIn()">
+          <md-input-container class="form-group" ng-if="!main.fb().isLoggedIn()">
             <label>
               {{ 'MODAL_USER_INFO_NAME' | translate }}:
-              <input type="text" class="form-control" ng-model="main.model().newDisplayName" maxlength="30" required>
             </label>
-          </div>
-          <div class="form-group">
+            <input type="text" class="form-control" ng-model="main.model().newDisplayName" maxlength="30" required>
+          </md-input-container>
+          <md-input-container>
             <label>
               {{ 'MODAL_USER_INFO_USERNAME' | translate }}:
-              <input type="text" class="form-control" ng-model="main.model().newUserName" maxlength="30" required>
             </label>
-            <div id="test_my_info_username_was_taken" ng-if="main.newUserNameWasTaken()">{{ 'MODAL_USER_INFO_USERNAME_WAS_TAKEN' | translate }}</div>
-          </div>
-          <button id="test_my_info_submit" type="submit" class="btn btn-primary">
+            <input type="text" class="form-control" ng-model="main.model().newUserName" maxlength="30" required>
+            <div id="test_my_info_username_was_taken" ng-if="main.newUserNameWasTaken()">
+              {{ 'MODAL_USER_INFO_USERNAME_WAS_TAKEN' | translate }}
+            </div>
+          </md-input-container>
+          <md-button id="test_my_info_submit" type="submit" class="btn btn-primary">
             {{ 'MODAL_BUTTON_SAVE' | translate }}
-          </button>
-          <button id="test_my_info_cancel" type="button" class="btn" ng-click="modal.hide()">
+          </md-button>
+          <md-button id="test_my_info_cancel" type="button" class="btn" ng-click="modal.hide()">
             {{ 'MODAL_BUTTON_CLOSE' | translate }}
-          </button>
+          </md-button>
         </form>
       </div>
     </div>
@@ -396,10 +405,12 @@
         <h4>{{ 'MODAL_TITLE_FEEDBACK_AND_BUGS' | translate }}</h4>
         <textarea ng-model="main.model().feedbackText" rows="5"
             placeholder="{{ 'MODAL_FEEDBACK_AND_BUGS_PLACEHOLDER_TEXT' | translate }}" required></textarea>
-        <button type="button" class="btn btn-primary" ng-click="main.sendFeedback(main.model().feedbackText)">{{ 'MODAL_BUTTON_SEND_FEEDBACK_AND_BUGS' | translate }}</button>
-        <button id="test_close_feedback_modal" type="button" class="btn btn-default" ng-click="modal.hide()">
+        <md-button type="button" class="btn btn-primary" ng-click="main.sendFeedback(main.model().feedbackText)">
+          {{ 'MODAL_BUTTON_SEND_FEEDBACK_AND_BUGS' | translate }}
+        </md-button>
+        <md-button id="test_close_feedback_modal" type="button" class="btn btn-default" ng-click="modal.hide()">
           {{ 'MODAL_BUTTON_CLOSE' | translate }}
-        </button>
+        </md-button>
       </div>
     </div>
   </div>
@@ -413,20 +424,20 @@
         <div id="test_game_over_match_status">
           {{main.currentMatch().getMatchStatusText({showDisplayName:true})}}
         </div>
-        <button id="test_share_invite_link_after_victory" type="button" class="btn btn-primary"
+        <md-button id="test_share_invite_link_after_victory" type="button" class="btn btn-primary"
             ng-if="main.didWinMultiplayerMatch()"
             ng-click="main.closeGameOverModal(); main.shareInviteLink({takePrintscreen: true, translationIdPrefix: 'SHARE_INTENT_WON_GAME'})">
           {{ 'SHARE_INTENT_WON_GAME_TAKE_SCREENSHOT' | translate }}
-        </button>
+        </md-button>
         <div id="test_game_over_rematch" class="menu-item" ng-click="main.currentMatch().startNewMatch()"
             ng-if="main.currentMatch().canRematch()">
           <div class="text">
             {{ main.translateRematch() }}
           </div>
         </div>
-        <button id="test_close_game_over_modal" type="button" class="btn" ng-click="main.closeGameOverModal()">
+        <md-button id="test_close_game_over_modal" type="button" class="btn" ng-click="main.closeGameOverModal()">
           {{ 'MODAL_BUTTON_CLOSE' | translate }}
-        </button>
+        </md-button>
       </div>
     </div>
   </div>
