@@ -15,16 +15,17 @@
   <!-- CSS for material design -->
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+  
 <script type="text/ng-template" id="html-templates/mainPage.html">
 <div class="box max_height">
   <div class="box_header">
     <div class="header">
       <div id="test_game_name" class="game-name">{{main.game().name()}}</div>
       <div class="main-avatar-container">
+        <md-button style="max-height:55px">
         <img id="test_my_avatar_img" alt="Your avatar" ng-click="main.showMyInfoModal()"
           ng-src="{{main.me().getAvatarImage()}}" class="avatar">
+        </md-button>
       </div>
     </div>
   </div>
@@ -35,15 +36,17 @@
         <div class="card-group">
           <div class="match"
               ng-repeat="match in main.yourTurnMatches() track by match.getMatchId()">
-            <div class="top" ng-click="match.load()">
-              <div class="subtitle">{{ 'MAIN_MATCH_LAST_MOVE_ON' | translate }} <span class="short-date-fixed-width">{{match.updatedTime() | date:'short'}}</span></div>
-              <div class="subtitle">{{ 'MAIN_MATCH_STARTED_ON' | translate }} <span class="short-date-fixed-width">{{match.createdTime() | date:'short'}}</span></div>
-            </div>
+            <md-button class="mdbutton" ng-click="match.load()">
+              {{ 'MAIN_MATCH_LAST_MOVE_ON' | translate }} {{match.updatedTime() | date:'short'}}<br>
+              {{ 'MAIN_MATCH_STARTED_ON' | translate }} {{match.createdTime() | date:'short'}}
+            </md-button>
             <div class="img-container">
+              <md-button>
               <img alt="Player avatar" ng-class="{img: true}"
                   ng-repeat="player in match.getPlayers({limit:1, excludeMe: true})"
                   ng-src="{{player.getAvatarImage()}}"
                   ng-click="main.showPlayerInfoModal(player, match)">
+              </md-button>
             </div>
           </div>
         </div>
@@ -53,15 +56,17 @@
         <div class="card-group">
           <div class="match"
               ng-repeat="match in main.opponentTurnMatches() track by match.getMatchId()">
-            <div class="top" ng-click="match.load()">
-              <div class="subtitle">{{ 'MAIN_MATCH_LAST_MOVE_ON' | translate }} <span class="short-date-fixed-width">{{match.updatedTime() | date:'short'}}</span></div>
-              <div class="subtitle">{{ 'MAIN_MATCH_STARTED_ON' | translate }} <span class="short-date-fixed-width">{{match.createdTime() | date:'short'}}</span></div>
-            </div>
+            <md-button class="mdbutton" ng-click="match.load()">
+              {{ 'MAIN_MATCH_LAST_MOVE_ON' | translate }} {{match.updatedTime() | date:'short'}}<br>
+              {{ 'MAIN_MATCH_STARTED_ON' | translate }} {{match.createdTime() | date:'short'}}
+            </md-button>
             <div class="img-container">
+              <md-button>
               <img alt="Player avatar" ng-class="{img: true}"
                   ng-repeat="player in match.getPlayers({limit:1, excludeMe: true})"
                   ng-src="{{player.getAvatarImage()}}"
                   ng-click="main.showPlayerInfoModal(player, match)">
+              </md-button>
             </div>
           </div>
         </div>

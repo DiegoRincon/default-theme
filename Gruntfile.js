@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             'http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js',
             'http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js',
             'http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js',
-            "https://fonts.googleapis.com/icon?family=Material+Icons",
+            'https://fonts.gstatic.com/s/materialicons/v15/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.ttf'
           ],
           network: !isForTesting ? ['*'] : 
             ['http://www.multiplayer-gaming.com/api/app.' + apiVersion + '.min.js',
